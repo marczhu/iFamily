@@ -12,14 +12,21 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
         try {
-            String command = "--start server";
-            Options options = Options.getOptions(command.split(" "));
+            if (args == null || args.length ==0) {
+                args = "--start server".split(" ");
+            }
+            for (String content :args) {
+                System.out.println("args = " + content);
+                LOGGER.info("args = " + content);
+            }
+            Options options = Options.getOptions(args);
             ShellCommand shellCommand = new ShellCommand();
             shellCommand.execute(options);
         } catch (Exception e) {
-            LOGGER.error("",e);
+            LOGGER.error("", e);
             System.exit(1);
         }
     }

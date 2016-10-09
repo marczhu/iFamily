@@ -13,7 +13,12 @@
 
 
     <dependencies>
-        <!--TODO remove it-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <!--TODO remove test scope libs-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
@@ -24,11 +29,13 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-core</artifactId>
             <version>5.7.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-console</artifactId>
             <version>5.7.0</version>
+            <scope>test</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-daemon</groupId>
@@ -40,41 +47,49 @@
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-pool</artifactId>
             <version>5.7.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.37</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>3.2.4.RELEASE</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-daemon</groupId>
             <artifactId>commons-daemon</artifactId>
             <version>1.0.15</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
             <version>2.5.3</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -104,10 +119,11 @@
                 <version>2.3.2</version>
                 <configuration>
                     <excludes>
-                        <exclude>*.xml</exclude>
-                        <exclude>*.properties</exclude>
-                        <exclude>sqlmap/**</exclude>
-                        <exclude>drl/**</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/sqlmap/**</exclude>
+                        <exclude>META-INF/**</exclude>
+                        <exclude>instance/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -142,9 +158,9 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <log_root_path>/home/haieradmin/data/logs/${project.artifactId}/</log_root_path>
+                <log_root_path>/usr/local/apps/data/logs/${project.artifactId}/</log_root_path>
                 <log_level>debug</log_level>
-                <jvm_memory>-Xms512m -Xmx512m</jvm_memory>
+                <jvm_memory>-Xms256m -Xmx256m</jvm_memory>
                 <app_name>${project.artifactId}</app_name>
                 <file_server_tcp_port>11088</file_server_tcp_port>
                 <file_server_ssl_port>11089</file_server_ssl_port>

@@ -43,7 +43,7 @@ if [ -z "$OPTS_MEMORY" ] ; then
     OPTS_MEMORY="-Xms2G -Xmx2G"
 fi
 
-OPTS_MEMORY="$OPTS_MEMORY -server -XX:MaxPermSize=256M -Xss256K -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"
+OPTS_MEMORY="$OPTS_MEMORY -server -XX:MaxPermSize=128M -Xss256K -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime"
 
 INSTANCE_LOG=`grep -ios 'log.root.path=.*$' ${BASEDIR}/conf/config.properties | tr -d '\r'`
 INSTANCE_LOG=${INSTANCE_LOG##*=}
@@ -91,6 +91,10 @@ if [ ! -x "$JAVACMD" ] ; then
   echo "  We cannot execute $JAVACMD"
   exit 1
 fi
+
+
+JAVACMD=/usr/local/apps/jdk1.6.0_45/bin/java
+echo "specify JAVA_HOME:$JAVACMD"
 
 
 SYSTEM_ARGUMENTS="-Dinstance_name=$INSTANCE_NAME -Dinstance_log_path=$INSTANCE_LOG -Dbasedir=$BASEDIR -Dfile.encoding=UTF-8"

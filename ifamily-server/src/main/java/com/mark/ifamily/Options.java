@@ -10,7 +10,11 @@ public class Options {
     private List<String> args = new ArrayList<String>();
 
     private Command command;
-    private Options(String[] args){
+    private Options(String[] args) {
+        if (args == null) {
+            printHelp();
+            System.exit(-1);
+        }
         for (int i = 0; i < args.length; i++) {
             String key = args[i];
             if (key.startsWith("--")) {
@@ -29,12 +33,16 @@ public class Options {
                 int pos = key.indexOf("=");
                 if (pos != -1) {
                     optionsMap.put(key.substring(0, pos), key.substring(pos + 1));
-                }else{
+                } else {
                     optionsMap.put(key, true);
                 }
             } else {
                 this.args.add(key);
             }
+        }
+        if (command == null) {
+            printHelp();
+            System.exit(-1);
         }
     }
     public static Options getOptions(final String[] args) {
@@ -93,6 +101,23 @@ public class Options {
         return sb.toString();
     }
 
+    private void printHelp(){
+        String helpFile[] = {
+                "Usage: Main [--task] [-task-options]",
+                "",
+                "Tasks:",
+                "    --start           - Creates and starts a broker using a configuration file, or a broker URI.",
+                "    --stop            - Stops a running broker specified by the broker name.",
+                "",
+                "Task Options (Options specific to each task):",
+                "    -console        - Console Mode",
+                "    -h,-?,--help    - Display this help information. To display task specific help, use Main [task] -h,-?,--help"
+
+        };
+        for (String content : helpFile) {
+            System.out.println(content);
+        }
+    }
 
     class Command{
         String key;
@@ -129,7 +154,7 @@ public class Options {
         }
     }
     public static void main(String[] args) {
-        String command = "--start server -console -ins=instance_name";
+        String command = "--start server -console -ins=instance_name -server.port=10999";
         Options options = Options.getOptions(command.split(" "));
         System.out.println(options.toString());
     }

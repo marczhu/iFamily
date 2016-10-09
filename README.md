@@ -31,3 +31,8 @@
   - 传输层
   - 文件存储层
 - 一期实现多用户支持(可以基于配置表)
+
+# 用法
+--start server
+--start agent
+--start client

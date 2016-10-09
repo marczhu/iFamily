@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * Created by mark.zhu on 2016/9/29.
  */
-public class ShellCommand implements Command {
+public class ShellCommand{
     private String helpFile[] = {
             "Usage: Main [--task] [-task-options]",
             "",
@@ -19,12 +19,11 @@ public class ShellCommand implements Command {
 
     };
 
-    @Override
     public void execute(Options options) throws Exception {
         try {
             Command command = CommandFactory.createCommand(options.getCommand().getKey(), options.getCommand().getValue());
             if (command != null) {
-                command.execute(options);
+                command.execute(Context.getContext(command.getConfigFile()));
             } else {
                 printHelp();
             }
