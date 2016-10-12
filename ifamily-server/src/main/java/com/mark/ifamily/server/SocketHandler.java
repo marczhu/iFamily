@@ -7,7 +7,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 /**
  * Created by mark.zhu on 2016/10/8.
@@ -32,7 +35,20 @@ public class SocketHandler {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             Request request = new Request();
-            request.addParameter("ip",socket.getInetAddress().getHostAddress());
+
+            InetAddress inetAddress = socket.getInetAddress();
+            InetSocketAddress remoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
+            InetAddress localAddress = socket.getLocalAddress();
+            InetSocketAddress localSocketAddress = (InetSocketAddress)socket.getLocalSocketAddress();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("socket.getInetAddress().toString():"+ socket.getInetAddress().toString() );
+            sb.append("socket.getRemoteSocketAddress().toString():"+socket.getRemoteSocketAddress().toString());
+            sb.append("socket.getLocalSocketAddress().toString():"+ socket.getLocalSocketAddress().toString());
+            sb.append("socket.getLocalSocketAddress():"+socket.getLocalSocketAddress().toString());
+
+
+            request.addParameter("ip",sb.toString());
             request.addParameter("param",in.readLine());
             Response response = requestHandler.handleRequest(request);
             if (response != null && response.getContent() != null) {
