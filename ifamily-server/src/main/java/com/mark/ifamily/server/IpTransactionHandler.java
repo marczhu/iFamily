@@ -16,8 +16,9 @@ public class IpTransactionHandler {
      * @param key
      * @param ip
      */
-    public void put(final String key,final String ip) {
+    public String put(final String key,final String ip) {
         storage.put(key, ip);
+        return key+":"+ip;
     }
 
     /**
