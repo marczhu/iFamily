@@ -36,3 +36,5 @@
 --start server
 --start agent
 --start client
+
+test
